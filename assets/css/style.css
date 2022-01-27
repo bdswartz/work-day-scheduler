@@ -59,10 +59,14 @@ body {
   
   .saveBtn {
     border-left: 1px solid black;
+    border-top: 1px solid white;
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
     background-color: #06AED5;
     color: white;
+  }
+  .task-item {
+    border-top: 1px solid white;
   }
   
   .saveBtn i:hover {
