@@ -5,6 +5,9 @@ var taskData = [];
 // load tasks and populate the schedule with tasks saved in local storage
 var loadTasks = function() {
     taskData = JSON.parse(localStorage.getItem("workScheduler"));
+    if (!taskData) {
+        ["","","","","","","","",""];
+    }
     $(".task-item").each(function(index) {
         $(this).val(taskData[index]);
     });

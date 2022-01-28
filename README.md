@@ -9,7 +9,7 @@ This is a scheduler that runs in a browser window.  With this app, the user can 
 * HTML
 
 ## Website
-
+https://bdswartz.github.io/work-day-scheduler/
 
 ## Contribution
 
