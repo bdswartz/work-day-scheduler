@@ -2,6 +2,7 @@ var date = moment().format("dddd, MMMM Do");
 var dayStartTime = 9;
 var taskData = [];
 
+// load tasks and populate the schedule with tasks saved in local storage
 var loadTasks = function() {
     taskData = JSON.parse(localStorage.getItem("workScheduler"));
     $(".task-item").each(function(index) {
@@ -9,6 +10,7 @@ var loadTasks = function() {
     });
 };
 
+// save tasks from the schedule text areas into local storage
 var saveTasks = function() {
     $(".task-item").each(function(index) {
         taskData[index] = $(this).val();
@@ -16,7 +18,8 @@ var saveTasks = function() {
     localStorage.setItem("workScheduler", JSON.stringify(taskData));
 };
 
-
+// get current date and time, show the calendar, and format 
+// with proper class based on the current time
 var showCalendar = function() {
     $("#currentDay").text(date);
     $(".hour").each(function(index) {
@@ -38,7 +41,13 @@ var showCalendar = function() {
     });
 };
 
-  $(".saveBtn").on("click", saveTasks);
+// present click feedback to user and call the function to save the tasks
+  $(".saveBtn").on("click", function() {
+      var buttonEl = $(this);
+      buttonEl.css("color", "black");
+      setTimeout(function() {buttonEl.css("color", "white");}, 250);
+      saveTasks();
+  });
 
 loadTasks();
 showCalendar();
