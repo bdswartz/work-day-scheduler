@@ -7,10 +7,10 @@ var loadTasks = function() {
     console.log("1");
     taskData = JSON.parse(localStorage.getItem("workScheduler"));
     console.log("2");
-    console.log(taskData);
     if (!taskData) {
-        ["","","","","","","","",""];
-    };
+        taskData = ["","","","","","","","",""];
+    };    
+    console.log(taskData);
     $(".task-item").each(function(index) {
         $(this).val(taskData[index]);
     });
