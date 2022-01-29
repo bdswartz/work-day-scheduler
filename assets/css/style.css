@@ -62,6 +62,9 @@ body {
   }
   
   .saveBtn {
+    display:flex;
+    align-items: center;
+    justify-content: center;
     border-left: 1px solid black;
     border-top: 1px solid white;
     border-top-right-radius: 15px;
@@ -76,4 +79,9 @@ body {
   .saveBtn i:hover {
     font-size: 20px;
     transition: all .3s ease-in-out;
+  }
+  .btn-header {
+    background-color: gray;
+    margin-top: 25px;
+    margin-bottom: 25px;
   }
