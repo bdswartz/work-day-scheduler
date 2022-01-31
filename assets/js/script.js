@@ -2,8 +2,18 @@ var date = moment().format("dddd, MMMM Do");
 var dayStartTime = 9;
 var workDayLength = 9;
 var taskData = [];
+var scheduleElArray = [];
 
-// load tasks and populate the schedule with tasks saved in local storage
+// Build a blank row unit to append as needed
+var newRow = $("<div>").addClass("row schedule-row");
+var newRowHour = $("<div>").addClass("col-1 hour");
+var newTaskInput = $("<textarea>").addClass("task-item col-10");
+var newSaveBtn = $("<div>").addClass("col-1 saveBtn");
+var newBtnIcon = $("<i>").addClass("fas fa-save");
+newSaveBtn.append(newBtnIcon);
+newRow.append(newRowHour,newTaskInput,newSaveBtn);
+
+// load tasks and populate the default schedule with tasks saved in local storage
 var loadTasks = function() {
     taskData = JSON.parse(localStorage.getItem("workScheduler"));
     if (!taskData) {
@@ -11,21 +21,22 @@ var loadTasks = function() {
             taskData[index] = "";
         }
     };
-    $(".task-item").each(function(index) {
-        $(this).val(taskData[dayStartTime + index]);
-        $(this).data("hour", (dayStartTime + index));
-    });
 };
+
+$(".modal-content").on("submit",function(event) {
+    event.preventDefault();
+    $('#exampleModal').modal('hide');
+    dayStartTime = parseInt($("#start-time").val());
+    workDayLength = parseInt($("#end-time").val()) - parseInt($("#start-time").val());
+    $(".schedule-row").each(function(index) {
+        $(this).remove();
+    });
+    showCalendar();
+});
+
 
 // save tasks from the schedule text areas into local storage
 var saveTasks = function() {
-    // dead code from when the entire array was saved at once
-    // $(".task-item").each(function(index) {
-    //     var hourIndex = $(this).data("hour");
-    //     console.log(hourIndex);
-    //     taskData[hourIndex] = $(this).val();
-    //     console.log($(this).val());
-    // });
     localStorage.setItem("workScheduler", JSON.stringify(taskData));
 };
 
@@ -33,6 +44,25 @@ var saveTasks = function() {
 // with proper class based on the current time
 var showCalendar = function() {
     $("#currentDay").text(date);
+    for (var i = 0; i < workDayLength; i++) {
+        var newRow = $("<div>").addClass("row schedule-row");
+        var newRowHour = $("<div>").addClass("col-1 hour");
+        var newTaskInput = $("<textarea>").addClass("task-item col-10");
+        var newSaveBtn = $("<div>").addClass("col-1 saveBtn");
+        var newBtnIcon = $("<i>").addClass("fas fa-save");
+        newSaveBtn.append(newBtnIcon);
+        newRow.append(newRowHour,newTaskInput,newSaveBtn);
+        scheduleElArray[i]= newRow;
+    };
+    $(".schedule").append(scheduleElArray);
+
+    $(".task-item").each(function(count) {
+        $(this).val(taskData[dayStartTime + count]);
+        $(this).data("hour", (dayStartTime + count));
+    });
+    styleCalendar();
+};
+var styleCalendar = function() {
     // cycle through and style the calendar
     $(".hour").each(function(index) {
         // get time and display formatted time to the appropriate calendar row heading
@@ -56,7 +86,7 @@ var showCalendar = function() {
 };
 
 // present click feedback to user and call the function to save the tasks
-  $(".saveBtn").on("click", function() {
+  $(".schedule").on("click", ".saveBtn", function() {
     //   save the data of the button that was pressed
       var saveIndex = $(this).siblings("textarea").data("hour");
     //   Get the value of the sibling text area and store in array of tasks
@@ -72,4 +102,4 @@ loadTasks();
 // show the work day and style immediately upon loading 
 showCalendar();
 // check styling every 5 min
-setInterval(showCalendar, 300000);
+setInterval(styleCalendar, 300000);

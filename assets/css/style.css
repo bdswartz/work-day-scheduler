@@ -2,6 +2,7 @@ body {
     font-family: 'Open Sans', sans-serif;
     font-size: 16px;
     line-height: 1;
+    min-height: 100vh;
   }
   
   textarea{
@@ -81,7 +82,9 @@ body {
     transition: all .3s ease-in-out;
   }
   .btn-header {
-    background-color: gray;
     margin-top: 25px;
     margin-bottom: 25px;
+  }
+  .modal-row {
+    height: 1.5rem;
   }
