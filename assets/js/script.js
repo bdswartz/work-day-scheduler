@@ -4,26 +4,15 @@ var workDayLength = 9;
 var taskData = [];
 var scheduleElArray = [];
 
-// // Build a blank row unit to append as needed
-// var newRow = $("<div>").addClass("row schedule-row");
-// var newRowHour = $("<div>").addClass("col-1 hour");
-// var newTaskInput = $("<textarea>").addClass("task-item col-10");
-// var newSaveBtn = $("<div>").addClass("col-1 saveBtn");
-// var newBtnIcon = $("<i>").addClass("fas fa-save");
-// newSaveBtn.append(newBtnIcon);
-// newRow.append(newRowHour,newTaskInput,newSaveBtn);
-
 // load tasks and populate the default schedule with tasks saved in local storage
 var loadTasks = function() {
     if (!localStorage.getItem("workScheduler")) {
-        console.log("empty")
         var taskData = [];
     }
     else {
         console.log("not empty")
        taskData = JSON.parse(localStorage.getItem("workScheduler")); 
     }
-    console.log(taskData);
     return(taskData);
 };
 
@@ -48,8 +37,6 @@ var saveTasks = function() {
 // with proper class based on the current time
 var showCalendar = function() {
     $("#currentDay").text(date);
-    console.log("show calendar");
-    console.log(workDayLength);
     for (var i = 0; i < workDayLength; i++) {
         var newRow = $("<div>").addClass("row schedule-row");
         var newRowHour = $("<div>").addClass("col-1 hour");
@@ -62,10 +49,7 @@ var showCalendar = function() {
     };
     console.log(scheduleElArray);
     $(".schedule").append(scheduleElArray);
-    console.log(taskData);
     $(".task-item").each(function(count) {
-        console.log(dayStartTime + count);
-        console.log(taskData[(dayStartTime + count)])
         $(this).val(taskData[dayStartTime + count]);
         $(this).data("hour", (dayStartTime + count));
     });
