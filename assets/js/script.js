@@ -38,6 +38,7 @@ var saveTasks = function() {
 var showCalendar = function() {
     $("#currentDay").text(date);
     for (var i = 0; i < workDayLength; i++) {
+        // Build elements of schedule
         var newRow = $("<div>").addClass("row schedule-row");
         var newRowHour = $("<div>").addClass("col-1 hour");
         var newTaskInput = $("<textarea>").addClass("task-item col-10");
@@ -45,10 +46,12 @@ var showCalendar = function() {
         var newBtnIcon = $("<i>").addClass("fas fa-save");
         newSaveBtn.append(newBtnIcon);
         newRow.append(newRowHour,newTaskInput,newSaveBtn);
+        // save built schedule elements in array
         scheduleElArray[i]= newRow;
     };
-    console.log(scheduleElArray);
+    // append elements stored in array to the DOM
     $(".schedule").append(scheduleElArray);
+    // populate schedule with saved tasks
     $(".task-item").each(function(count) {
         $(this).val(taskData[dayStartTime + count]);
         $(this).data("hour", (dayStartTime + count));
